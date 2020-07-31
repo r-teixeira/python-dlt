@@ -6,6 +6,7 @@ from __future__ import absolute_import
 import logging
 import socket
 import time
+import traceback
 
 from collections import defaultdict
 from threading import Thread, Event, Lock
@@ -151,6 +152,7 @@ class DLTMessageHandler(Process):
                         if not self.context_map[apid_ctid]:
                             del(self.context_map[apid_ctid])
                 except (KeyError, ValueError):
+                    logger.info("queue_id already removed or not inserted \n%s", traceback.format_exc())
                     # - queue_id already removed or not inserted
                     pass
 
